@@ -1,0 +1,238 @@
+body {
+    background-color: #515151;
+    font-family: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#cabecalho {
+    padding-left: 80px;
+    padding-right: 80px;
+    background-color: #E0E1DD;
+    color: #fff;
+    height: 60px;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.list{
+    display: flex;
+    list-style: none;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .a {
+    text-decoration: none;
+    color: #1B263B;
+    padding: 21px;
+    font-weight: bold;
+    transition: background-color 0.5s ease-in-out;
+    border-radius: 10px;
+  }
+  
+  .a:hover{
+    background-color: #FFFFFF;
+  }
+  
+  .list img{
+    width: 40px;
+    height: 35px;
+    padding: 13px;
+    transition: background-color 0.5s ease-in-out;
+  }
+  
+  .list img:hover{
+    background-color: #FFFFFF;
+  }
+  
+  .logo a img{
+    width: 60px;
+    height: 40px;
+    padding: 11px;
+    transition: background-color 0.5s ease-in-out;
+  }
+  
+  .logo a img:hover{
+    background-color: #FFFFFF;
+  }
+  
+  .p1{
+    margin-left: 50px;
+  }
+  
+  .acessibilidade img{
+    width: 27px;
+    height: 25px;
+  }
+  
+  .search input{
+    display: flex;
+    border: 0px;
+    outline: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    width: 300px;
+  
+  }
+  
+  .logo-search{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    gap: 30px;
+  }
+
+#principal {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+
+
+}
+
+.card {
+    width: 17em;
+    height: 22.5em;
+    background: #1B263B;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card span {
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    display: block;
+    font-size: 1em;
+}
+
+.card .info {
+    font-weight: 400;
+    color: white;
+    display: block;
+    text-align: center;
+    font-size: 0.72em;
+    margin: 1em;
+}
+
+.card .img {
+    width: 4.8em;
+    height: 4.8em;
+    margin: auto;
+}
+
+.img img {
+    width: 4.8em;
+    height: 4.8em;
+    border-radius: 40px;
+}
+
+.card .share {
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+
+.share a {
+    color: white;
+}
+
+.add {
+    font-size: 12px;
+    margin: auto;
+    color: #0582CA;
+}
+
+.botao-perfil {
+    padding: 0.8em 1.7em;
+    display: block;
+    margin: auto;
+    border-radius: 25px;
+    border: none;
+    font-weight: bold;
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+}
+
+.card button:hover {
+    background: #E0E1DD;
+    cursor: pointer;
+}
+
+.grupos {
+    width: 17em;
+    height: 8em;
+    margin-top: 10px;
+    background: #E0E1DD;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.grupos-efeito {
+    padding: 13px;
+    text-decoration: none;
+    color: #0582CA;
+    font-size: 15px;
+}
+
+.grupos-efeito:hover {
+    text-decoration: underline;
+}
+
+.sign {
+    border-radius: 12px;
+    height: 40px;
+    width: 100%;
+    background-color: #E0E1DD;
+    border: none;
+    font-weight: bold;
+}
+
+.sign a {
+    color: #0582CA;
+    ;
+    display: block;
+    text-decoration: none;
+}
+
+.editar {
+    padding: 0.5em 1.0em;
+    display: block;
+    margin: auto;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+}
+
+.editar a {
+    text-decoration: none;
+    color: rgba(17, 24, 39, 1);
+    display: block;
+    padding: 12px 0px;
+}
+
+.input-group input {
+    display: flex;
+    align-items: center;
+    width: 88%;
+    border-radius: 0.325rem;
+    border: 1px solid rgba(55, 65, 81, 1);
+    outline: 0;
+    padding: 0.45rem 1rem;
+}
