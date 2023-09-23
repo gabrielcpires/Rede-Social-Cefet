@@ -1,48 +1,42 @@
 <?php
- session_start();
-//variavel que verifica autenticação
-$usuario_autenticado = false;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Conecta ao banco de dados
+    $dsn = 'mysql:host=localhost;dbname=adotecalouro;charset=utf8';
+    $username = 'root';
+    $password = '';
 
-//usuarios do sistema
-$usuarios_app = array(
-    array('email' => 'adm@teste.com.br' , 'senha' => '123456'),
-    array('email' => 'adm2@teste.com.br' , 'senha' => '123abc'),
-);
+    try {
+        $pdo = new PDO($dsn, $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+        // Recebe os valores do formulário
+        $email = $_POST['email'];
+        $senha = $_POST['senha'];
 
-/*
-echo '<pre>'; 
-print_r($usuarios_app);
-echo '</pre>';
-*/
- 
-foreach ($usuarios_app as $user){
+        // Busca o usuário no banco de dados
+        $stmt = $pdo->prepare('SELECT * FROM usuarios WHERE email = ?');
+        $stmt->execute([$email]);
+        $user = $stmt->fetch();
 
-    if($user['email'] == $_POST['email'] && $user['senha'] == $_POST['senha'] ){
-        $_SESSION['username'] = $_POST['username'];
-        $usuario_autenticado = true;
-    } 
+        print_r($user);
+        // Verifica se o usuário existe e se a senha está correta
+        if ($user['senha'] == $senha) {
+            // Usuário autenticado, redireciona para a página de sucesso ou outra página desejada
+            session_start();
+            $_SESSION['id'] = $user['id'];
+            $_SESSION['username'] = $user['nome'];
+            $_SESSION['mensagem_perfil'] = $user['descricao'];
+            $_SESSION['autenticado'] = 'SIM';
+            header('Location: index.php');
+            exit();
+        } else {
+            // Usuário ou senha inválidos, redireciona de volta para a página de login com um parâmetro de erro
+            $_SESSION['autenticado'] = 'NAO';
+            header('Location: entrar.php?login=erro');
+            exit();
+        }
+    } catch (PDOException $e) {
+        echo 'Erro ao conectar ao banco de dados: ' . $e->getMessage();
+    }
 }
-
-if($usuario_autenticado){
-    // echo 'Usuário autenticado';
-    $_SESSION['autenticado'] = 'SIM';
-    header('Location: index.php');
-}else{
-    $_SESSION['autenticado'] = 'NAO';
-    header('Location: entrar.php?login=erro');
-}
-/*
-    print_r($_GET);
-
-    echo '<br>';
-    echo $_GET['email'];
-    echo '<br>';
-    echo $_GET['senhal'];ad
-    
-    print_r($_POST);
-
-    echo '<br>';
-    */
-    
 ?>

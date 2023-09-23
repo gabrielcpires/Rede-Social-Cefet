@@ -232,23 +232,20 @@ body {
 
 .publicar{
   width: 100%;
-  height: 120px;
+  height: 50px;
   background-color: #E0E1DD;
   border-radius: 15px;
-  display: flex;
-  flex-direction: column;
 }
 
-.l1{
+/* .l1{
   width: 100%;
   height: 80px;
   display: flex;
   flex-direction: row;
-}
+} */
 
 .l2{
-  display: flex;
-  flex-direction: row;
+ 
 }
 
 .publicar-perfil img{
@@ -281,8 +278,8 @@ body {
 }
 
 .l2 button {
-  margin-left: 160px;
-  margin-bottom: 65px;
+  margin-left: 500px;
+  margin-top: 4px;
   appearance: none;
   background-color: #1A1A1A;
   border: 0.125em solid #1A1A1A;
@@ -425,3 +422,4 @@ body {
   height: 20px;  
   color:#E0E1DD;
 }
+

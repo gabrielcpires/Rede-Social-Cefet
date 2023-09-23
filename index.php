@@ -10,20 +10,23 @@
 </head>
 
 <body>
-  <?php include "menu.inc";?>
+  <?php include "menu.inc"; ?>
+  <? require_once "validador_acesso.php"; ?>
 
   <div id="principal">
     <div class="perfil">
       <div class="card">
         <div class="img"> <img src="assets/foto.jpg" alt=""></div>
         <span>Olá,
-        <?php
-          session_start();
+          <?php
           echo $_SESSION['username'];
-          
-        ?> </span>
-        <a href="perfil.php" class="add">Editar</a>
-        <p class="info"><?php echo $_SESSION['mensagem_perfil']; ?></p>
+
+          ?>
+        </span>
+        <a href="logout.php" class="add">Sair</a>
+        <p class="info">
+          <?php echo $_SESSION['mensagem_perfil']; ?>
+        </p>
         <div class="share">
           <a href="https://github.com/"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
               fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
@@ -51,7 +54,7 @@
             </svg></a>
         </div>
         <form action="perfil.php">
-          <button >Perfil</button>
+          <button>Perfil</button>
         </form>
       </div>
       <div class="grupos">
@@ -65,28 +68,67 @@
 
     <div id="conteudo">
       <div class="publicar">
-        <div class="l1">
-          <div class="publicar-perfil">
-            <a href=""> <img src="assets/foto.jpg" alt=""></a>
+        <form action="fazerPublicacao.php">
+          <div class="l2">
+            <button>Publicar</button>
           </div>
-          <div class="search">
-            <input type="text" placeholder="Publicar">
-          </div>
-        </div>
-        <div class="l2">
-          <div class="add-img">
-            <div> <a href="" title="Mídia"> <img src="assets/galeria.svg" alt=""></a></div>
-            <div> <a href="" title="Anexar"> <img src="assets/clip.svg" alt=""></a></div>
-            <div> <a href="" title="Emoji"> <img src="assets/emoticon.svg" alt=""></a></div>
-          </div>
-          <button>Publicar</button>
-        </div>
+        </form>
       </div>
       <hr>
-      <div class="publicacoes">
+      <?php
+try {
+    $dsn = 'mysql:host=localhost;dbname=adotecalouro;charset=utf8';
+    $username = 'root';
+    $password = '';
+    $pdo = new PDO($dsn, $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $stmt = $pdo->prepare("
+        SELECT 
+            p.id, p.id_usuario, u.nome, p.texto, DATE_FORMAT(p.data, '%d/%m/%Y %H:%i') as data
+        FROM 
+            publicacoes as p
+            LEFT JOIN usuarios as u ON (p.id_usuario = u.id)
+        ORDER BY
+            p.data DESC
+    ");
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($result as $row) {
+        echo '
+            <div class="publicacoes">
+                <div class="linha-1">
+                    <div class="publicar-perfil">
+                        <a href=""> <img src="assets/icone.png" alt=""></a>
+                    </div>
+                    <div class="nome">
+                        <a href="">' . $row['nome'] . '</a>
+                        <div class="lugar">
+                           Centro Federal de Educação Tecnológica de Minas Gerais
+                        </div>
+                        <div class="tempo">• ' . $row['data'] . '  </div>
+                    </div>
+                </div>
+                <div class="linha-2">' . $row['texto'] . '</div>
+                <div class="linha-3">
+                    <div> <a href="" title="Gostei"> <img src="assets/gostei.svg" alt=""></a></div>
+                    <div> <a href="" title="Comentar"> <img src="assets/comentar.svg" alt=""></a></div>
+                    <div> <a href="" title="Compartilhar"> <img src="assets/compartilhar.svg" alt=""></a></div>
+                    <div> <a href="" title="Enviar"> <img src="assets/enviar.svg" alt=""></a></div>
+                </div>
+            </div>
+        ';
+    }
+} catch (PDOException $e) {
+    echo 'Erro ao conectar ao banco de dados: ' . $e->getMessage();
+}
+?>
+
+      <!-- <div class="publicacoes">
         <div class="linha-1">
           <div class="publicar-perfil">
-            <a href=""> <img src="assets/foto1.jpg" alt=""></a>
+            <a href=""> <img src="assets/icone.png" alt=""></a>
           </div>
           <div class="nome">
             <a href="">Zequinha Gato a Jato</a>
@@ -104,12 +146,12 @@
         </div>
         <div class="linha-3">
           <div> <a href="" title="Gostei"> <img src="assets/gostei.svg" alt=""></a></div>
-            <div> <a href="" title="Comentar"> <img src="assets/comentar.svg" alt=""></a></div>
-            <div> <a href="" title="Compartilhar"> <img src="assets/compartilhar.svg" alt=""></a></div>
-            <div> <a href="" title="Enviar"> <img src="assets/enviar.svg" alt=""></a></div>
+          <div> <a href="" title="Comentar"> <img src="assets/comentar.svg" alt=""></a></div>
+          <div> <a href="" title="Compartilhar"> <img src="assets/compartilhar.svg" alt=""></a></div>
+          <div> <a href="" title="Enviar"> <img src="assets/enviar.svg" alt=""></a></div>
         </div>
-      </div>
-      <div class="publicacoes">
+      </div> -->
+      <!-- <div class="publicacoes">
         <div class="linha-1">
           <div class="publicar-perfil">
             <a href=""> <img src="assets/foto2.jpg" alt=""></a>
@@ -130,12 +172,12 @@
         </div>
         <div class="linha-3">
           <div> <a href="" title="Gostei"> <img src="assets/gostei.svg" alt=""></a></div>
-            <div> <a href="" title="Comentar"> <img src="assets/comentar.svg" alt=""></a></div>
-            <div> <a href="" title="Compartilhar"> <img src="assets/compartilhar.svg" alt=""></a></div>
-            <div> <a href="" title="Enviar"> <img src="assets/enviar.svg" alt=""></a></div>
+          <div> <a href="" title="Comentar"> <img src="assets/comentar.svg" alt=""></a></div>
+          <div> <a href="" title="Compartilhar"> <img src="assets/compartilhar.svg" alt=""></a></div>
+          <div> <a href="" title="Enviar"> <img src="assets/enviar.svg" alt=""></a></div>
         </div>
-      </div>
-      <div class="publicacoes">
+      </div> -->
+      <!-- <div class="publicacoes">
         <div class="linha-1">
           <div class="publicar-perfil">
             <a href=""> <img src="assets/foto3.jpg" alt=""></a>
@@ -156,12 +198,12 @@
         </div>
         <div class="linha-3">
           <div> <a href="" title="Gostei"> <img src="assets/gostei.svg" alt=""></a></div>
-            <div> <a href="" title="Comentar"> <img src="assets/comentar.svg" alt=""></a></div>
-            <div> <a href="" title="Compartilhar"> <img src="assets/compartilhar.svg" alt=""></a></div>
-            <div> <a href="" title="Enviar"> <img src="assets/enviar.svg" alt=""></a></div>
+          <div> <a href="" title="Comentar"> <img src="assets/comentar.svg" alt=""></a></div>
+          <div> <a href="" title="Compartilhar"> <img src="assets/compartilhar.svg" alt=""></a></div>
+          <div> <a href="" title="Enviar"> <img src="assets/enviar.svg" alt=""></a></div>
         </div>
-      </div>
-      <div class="publicacoes">
+      </div> -->
+      <!-- <div class="publicacoes">
         <div class="linha-1">
           <div class="publicar-perfil">
             <a href=""> <img src="assets/foto4.jpg" alt=""></a>
@@ -181,11 +223,10 @@
         </div>
         <div class="linha-3">
           <div> <a href="" title="Gostei"> <img src="assets/gostei.svg" alt=""></a></div>
-            <div> <a href="" title="Comentar"> <img src="assets/comentar.svg" alt=""></a></div>
-            <div> <a href="" title="Compartilhar"> <img src="assets/compartilhar.svg" alt=""></a></div>
-            <div> <a href="" title="Enviar"> <img src="assets/enviar.svg" alt=""></a></div>
-        </div>
-      </div>
+          <div> <a href="" title="Comentar"> <img src="assets/comentar.svg" alt=""></a></div>
+          <div> <a href="" title="Compartilhar"> <img src="assets/compartilhar.svg" alt=""></a></div>
+          <div> <a href="" title="Enviar"> <img src="assets/enviar.svg" alt=""></a></div>
+        </div> -->
     </div>
     <div id="noticias">
       <div class="not-main">

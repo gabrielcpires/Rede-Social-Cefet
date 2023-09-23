@@ -12,7 +12,7 @@
 <body>
     <div class="form-container">
         <p class="title">Cadastre-se</p>
-        <form class="form" action="valida_login.php" method="post">
+        <form class="form" action="valida_cadastro.php" method="post">
             <div class="input-group">
                 <label for="username">Nome</label>
                 <input type="text" name="username" id="username" placeholder="">

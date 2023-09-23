@@ -13,6 +13,7 @@
 <body>
   
 <?php include "menu.inc";?>
+<? require_once "validador_acesso.php";?>
 
   <div id="principal">
     <div class="contatos">

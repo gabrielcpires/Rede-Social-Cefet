@@ -27,7 +27,7 @@
                 </span>
                 <form class="form" action="edita_perfil.php" method="post">
                     <div class="input-group">
-                        <input type="text" id="editar-texto" placeholder="<?php echo $_SESSION['mensagem_perfil']; ?>"
+                        <input type="text" id="editar-texto" value="<?php echo $_SESSION['mensagem_perfil']; ?>"
                             name="editar-texto" />
                         <button class="editar"> Editar</button>
                     </div>
